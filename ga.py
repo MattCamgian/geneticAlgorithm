@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from trafficSim import traffic_sim
 from deap import creator, base, tools, algorithms
 
+import traffic_vis
+
 creator.create("FitnessMax", base.Fitness, weights=(0.5,-2.0,-1.0))
 creator.create("Individual", list, fitness=creator.FitnessMax)
 
@@ -28,7 +30,7 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 population = toolbox.population(n=80)
 
-NGEN=25
+NGEN=2
 best = []
 for gen in range(NGEN):
     offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.2)
@@ -46,3 +48,7 @@ for value in zip(*best):
     plt.plot(range(0,NGEN),np.array(value))
 plt.legend(["passed_intersection", "entered_intersection", "wreck", "avg_wait"])
 plt.show()
+
+finalBest = tools.selBest(population, k=1)[0]
+traffic_vis.draw_intersection(finalBest)
+
