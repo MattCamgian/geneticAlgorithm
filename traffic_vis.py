@@ -9,7 +9,7 @@ def draw_intersection(intersection):
 def draw_traffic_arrows(north_to_south=True, south_to_north=True, east_to_west=True, west_to_east=True):
     # Open the image and create the drawing agent.
 
-    im = Image.open("intersection.png")
+    im = Image.open("geneticAlgorithm/intersection.png")
     draw = ImageDraw.Draw(im)
 
     # Get some structural information.
