@@ -56,5 +56,6 @@ def draw_traffic_arrows(north_to_south=True, south_to_north=True, east_to_west=T
         draw.line(line, fill="blue", width=10)
         draw.polygon(triangle, fill="blue", outline=None)
 
+    im.thumbnail([128,128])
     # Show (or save) the image.
     display(im)
