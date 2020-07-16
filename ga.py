@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from trafficSim import traffic_sim
 from deap import creator, base, tools, algorithms
 
-creator.create("FitnessMax", base.Fitness, weights=(1.0,-2.0,-1.0))
+creator.create("FitnessMax", base.Fitness, weights=(0.5,-2.0,-1.0))
 creator.create("Individual", list, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
@@ -28,10 +28,10 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 population = toolbox.population(n=80)
 
-NGEN=50
+NGEN=25
 best = []
 for gen in range(NGEN):
-    offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.1)
+    offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.2)
     fits = toolbox.map(toolbox.evaluate, offspring)
     for fit, ind in zip(fits, offspring):
         ind.fitness.values = fit
