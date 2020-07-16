@@ -3,8 +3,24 @@ import IPython.display
 
 
 def draw_intersection(intersection):
+    images = []
     for i in range(0, 4):
-        draw_traffic_arrows(intersection[0] == i, intersection[1] == i, intersection[2] == i, intersection[3] == i)
+        images.append(draw_traffic_arrows(intersection[0] == i, intersection[1] == i, intersection[2] == i, intersection[3] == i))
+
+    widths, heights = zip(*(i.size for i in images))
+
+    total_width = sum(widths)
+    max_height = max(heights)
+
+    new_im = Image.new('RGB', (total_width, max_height))
+
+    x_offset = 0
+    for im in images:
+        new_im.paste(im, (x_offset, 0))
+        x_offset += im.size[0]
+
+    display(new_im)
+    # new_im.show()
 
 def draw_traffic_arrows(north_to_south=True, south_to_north=True, east_to_west=True, west_to_east=True):
     # Open the image and create the drawing agent.
@@ -58,4 +74,4 @@ def draw_traffic_arrows(north_to_south=True, south_to_north=True, east_to_west=T
 
     im.thumbnail([128,128])
     # Show (or save) the image.
-    display(im)
+    return im
