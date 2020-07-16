@@ -30,7 +30,7 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 population = toolbox.population(n=80)
 
-NGEN=2
+NGEN=25
 best = []
 for gen in range(NGEN):
     offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.2)
