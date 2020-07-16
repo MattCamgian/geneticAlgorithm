@@ -3,7 +3,7 @@ import random
 
 class road_lanes:
     def __init__(self):
-        self.cars = np.random.choice(2, 2000, p=[0.4, 0.6]).tolist()
+        self.cars = np.random.choice(2, 2000, p=[0.2, 0.8]).tolist()
 
 
 
@@ -19,7 +19,8 @@ def traffic_sim(individual):
     state = 0
     endTime = 0
     wait_times = [0]
-    num_itr = 250
+    num_itr = 500
+    endTime = individual[4 + state]
     for time in range(0,num_itr):
 
         cars = np.zeros([4, 1])
@@ -27,15 +28,16 @@ def traffic_sim(individual):
         while endTime == time:
             state = (state + 1) % 4
             seq_times = np.zeros([4,1])
-            if individual[0] == state:
-                seq_times[0] = individual[4]
-            if individual[1] == state:
-                seq_times[1] = individual[5]
-            if individual[2] == state:
-                seq_times[2] = individual[6]
-            if individual[3] == state:
-                seq_times[3] = individual[7]
-            endTime = time + np.max(seq_times)
+            endTime = time + individual[4+state]
+            # if individual[0] == state:
+            #     seq_times[0] = individual[4]
+            # if individual[1] == state:
+            #     seq_times[1] = individual[5]
+            # if individual[2] == state:
+            #     seq_times[2] = individual[6]
+            # if individual[3] == state:
+            #     seq_times[3] = individual[7]
+            # endTime = time + np.max(seq_times)
 
         for id in range(0,4):
             if individual[id] == state:
@@ -57,7 +59,7 @@ def traffic_sim(individual):
             passed_intersection = passed_intersection + np.sum(cars)
         entered_intersection = entered_intersection + np.sum(cars)
 
-    avg_wait = np.average(wait_times)
+    avg_wait = np.average(np.hstack([wait_times,wait]))
     return passed_intersection, entered_intersection, wreck, avg_wait
 
-traffic_sim([3, 3, 1, 1, 80, 0, 24, 0])
+traffic_sim([1, 1, 2, 2, 391, 54, 489, 297])

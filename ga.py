@@ -13,7 +13,7 @@ toolbox = base.Toolbox()
 
 
 toolbox.register("attr_seq", random.randint, 0, 3)
-toolbox.register("attr_light", random.randint, 1, 500)
+toolbox.register("attr_light", random.randint, 0, 100)
 toolbox.register("individual", tools.initCycle, creator.Individual, (toolbox.attr_seq, toolbox.attr_seq, toolbox.attr_seq, toolbox.attr_seq, toolbox.attr_light,toolbox.attr_light,toolbox.attr_light,toolbox.attr_light))
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
@@ -23,10 +23,10 @@ def eval(individual):
 
 toolbox.register("evaluate", eval)
 toolbox.register("mate", tools.cxTwoPoint)
-toolbox.register("mutate", tools.mutUniformInt, low=0, up=[3,3,3,3,500,500,500,500] ,indpb=0.15)
+toolbox.register("mutate", tools.mutUniformInt, low=0, up=[3,3,3,3,100,100,100,100] ,indpb=0.15)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
-population = toolbox.population(n=100)
+population = toolbox.population(n=80)
 
 NGEN=50
 best = []
